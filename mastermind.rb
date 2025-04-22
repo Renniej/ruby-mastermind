@@ -67,10 +67,9 @@ class Game
 
   def get_feedback(guesses)
    guesses.each_with_index.map do |guess, index|
-      if @code.includes? guess && guesses[index] == guess
-        FEEDBACK.CORRECT_RIGHT_POSITON
-      elsif
-        FEEDBACK.CORRECT_WRONG_POSITION
+      if @code.includes? guess 
+        @code[index] == guess ? FEEDBACK.CORRECT_RIGHT_POSITON : FEEDBACK.CORRECT_WRONG_POSITION
+      end
     end.compact.shuffle
   end
 
