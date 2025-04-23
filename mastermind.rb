@@ -95,30 +95,38 @@ class Game
 #      end
 #    end   
 
-  def start 
-    puts "#{player1.name} pick a code"
-    @code = player1.input.split.map(&:to_i)
-     
-    12.times do |attempt|
-      puts "#{player2.name} please guess the 4 color code"
-      guesses = player2.input.split.map(&:to_i)
-      feedback = get_feedback(guesses)
-      player2_won =  feedback.all? {& == FEEDBACK.CORRECT_RIGHT_POSITION} && feedback.size == 
-      
-      if player2_won 
-        puts "#{player2.name} won!"
-        break;
-      elsif feedback.empty? 
-        puts "#{player2.name} got everything wrong..."
-      elsif attempt == 12  
-         puts "Out of attempts.. #{player1.name} wins!"
-      else
-        puts feedback
-      end
-        
-
-   
+  def display_feedback(list_of_feedback)
+    if feedback.empty? 
+      puts "#{player2.name} got everything wrong..."
+    else
+      puts feedback
     end
-    
+  end
+
+
+  
+  def input_code(player, msg) {
+    player.input.split.map(&:to_i)
+  }
+  
+
+  def run_round(player) #returns if the player won this round
+    puts "#{@player.name} please guess the color code"
+    guess = input_code(player)
+    feedback = get_feedback(guess)
+    display_feedback(feedback) 
+    list_of_feedback.all? {& == FEEDBACK.CORRECT_RIGHT_POSITION} && list_of_feedback.size == 4
+  end
+
+  def start 
+    puts "#{@player1.name} pick a code"
+    @code = input_code(@player1)
+    12.times do 
+      if run_round(player)
+        puts "#{@player2.name} won!"
+        return
+      end
+    end
+    puts "Out of attempts.. #{@player1.name} wins!"
   end
 end
