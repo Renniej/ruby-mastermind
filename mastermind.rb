@@ -15,8 +15,8 @@ class Game
     @player1 = player1
     @player2 = player2
     
-    player1.game = self if (player1.is_a Computer) 
-    player2.game = self if (player2.is_a Computer) 
+    player1.game = self if (player1.is_a? Computer) 
+    player2.game = self if (player2.is_a? Computer) 
   end
 
   def start 
@@ -49,8 +49,7 @@ class Game
 
   def is_valid_code(code_list)
     return { valid: false, error_message: "The code must be 4 digits long" } unless code_list.size == 4
-    return { valid: false, error_message: "The code must contain all unique numbers" } unless code_list.uniq.size == 4
-  
+
     { valid: true, error_message: "" }
   end
 
