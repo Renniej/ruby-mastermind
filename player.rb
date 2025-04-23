@@ -8,4 +8,8 @@ class Player
   def get_input
      gets.chomp
   end
+
+  def get_color_guess
+  
+  end
 end
