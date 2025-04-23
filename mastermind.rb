@@ -80,8 +80,8 @@ class Game
 
   def get_feedback(guesses)
    guesses.each_with_index.map do |guess, index|
-      if @code.includes? guess 
-        @code[index] == guess ? FEEDBACK.CORRECT_RIGHT_POSITION : FEEDBACK.CORRECT_WRONG_POSITION
+      if @code.include? guess 
+        @code[index] == guess ? FEEDBACK[:CORRECT_RIGHT_POSITION] : FEEDBACK[:CORRECT_WRONG_POSITION]
       end
     end.compact.shuffle
   end
@@ -108,7 +108,7 @@ class Game
   
 
   def run_round(player) #run round returns true or false based on if the player correct guessed the code
-    puts "#{@player.name} please guess the color code"
+    puts "#{player.name} please guess the color code"
     guess = input_code(player)
     feedback = get_feedback(guess)
     display_feedback(feedback) 
