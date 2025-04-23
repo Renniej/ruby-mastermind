@@ -100,9 +100,9 @@ class Game
     loop do
       input = player.get_input.split("").map(&:to_i)
       return input if input.size == 4
-      puts "The code must be 4 digits long"
+      puts "The code must be 4 digits long, try again:"
     rescue ArgumentError
-      puts "Input must be numbers"
+      puts "Input must be numbers, try again:"
     end
   end
   
