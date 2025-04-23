@@ -94,19 +94,24 @@ class Game
     end
   end
 
-
+  def is_valid_code(code_list)
+    return { valid: false, error_message: "The code must be 4 digits long" } unless code_list.size == 4
+    return { valid: false, error_message: "The code must contain all unique numbers" } unless code_list.uniq.size == 4
   
+    { valid: true, error_message: "" }
+  end
+
   def input_code(player)
     loop do
-      input = player.get_input.split("").map(&:to_i)
-      return input if input.size == 4
-      puts "The code must be 4 digits long, try again:"
+      input = player.get_input.chars.map(&:to_i)
+      code_check = is_valid_code(input)
+      return input unless !code_check.valid
+      put code_check[:error_message] + ", try again:"
     rescue ArgumentError
       puts "Input must be numbers, try again:"
     end
   end
   
-
   def run_round(player) #run round returns true or false based on if the player correct guessed the code
     puts "#{player.name} please guess the color code"
     guess = input_code(player)
