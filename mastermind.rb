@@ -59,8 +59,10 @@ FEEDBACK = {
 }
 
 class Game
-  def initialize
+  def initialize(player1, player2)
     @code = []
+    @player1 = player1
+    @player2 = player2
   end
 
 
@@ -72,5 +74,7 @@ class Game
       end
     end.compact.shuffle
   end
+
+
 
 end
