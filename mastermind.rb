@@ -59,13 +59,24 @@ FEEDBACK = {
 }
 
 class Game
+
   def initialize(player1, player2)
     @code = []
     @player1 = player1
     @player2 = player2
   end
 
-
+  def start 
+    puts "#{@player1.name} pick a code"
+    @code = input_code(@player1)
+    12.times do 
+      if run_round(@player2) #run round returns true or false based on if the player correct guessed the code
+        puts "#{@player2.name} won!"
+        return
+      end
+    end
+    puts "Out of attempts.. #{@player1.name} wins!"
+  end
 
   def get_feedback(guesses)
    guesses.each_with_index.map do |guess, index|
@@ -75,50 +86,34 @@ class Game
     end.compact.shuffle
   end
 
-
-  # start()
-#   output player1.name. pick a code (have input be blocked with ****)
-#   game.code = player1.input().split split into an array of 4 numbers
-#   Loop 12 times
-#     output player2.name, please guess a color
-#     create variable of type array named guess with the initial values of player2.inputColors().split() into array of 4 numbers
-#     create variable called feedback =  get_feedback(guess)
-#     
-#     if feedback is the size of 4 and each element is of value CORRECT_RIGHT_POSITION
-#       output player1.name WON!
-#     else if 12th loop
-#       output "Out of attempts.. player_2.name wins!"
-#     else if feedback is empty
-#       output "seems like you got everything wrong...."
-#     else 
-#       output feedback
-#      end
-#    end   
-
-  def start 
-    puts "#{player1.name} pick a code"
-    @code = player1.input.split.map(&:to_i)
-     
-    12.times do |attempt|
-      puts "#{player2.name} please guess the 4 color code"
-      guesses = player2.input.split.map(&:to_i)
-      feedback = get_feedback(guesses)
-      player2_won =  feedback.all? {& == FEEDBACK.CORRECT_RIGHT_POSITION} && feedback.size == 
-      
-      if player2_won 
-        puts "#{player2.name} won!"
-        break;
-      elsif feedback.empty? 
-        puts "#{player2.name} got everything wrong..."
-      elsif attempt == 12  
-         puts "Out of attempts.. #{player1.name} wins!"
-      else
-        puts feedback
-      end
-        
-
-   
+  def display_feedback(list_of_feedback)
+    if feedback.empty? 
+      puts "#{player2.name} got everything wrong..."
+    else
+      puts feedback
     end
-    
   end
+
+
+  
+  def input_code(player)
+    loop do
+      input = player.input.split.map(&:to_i)
+      return input if input.size == 4
+      puts "The code must be 4 digits long"
+    rescue ArgumentError
+      puts "Input must be numbers"
+    end
+  end
+  
+
+  def run_round(player) #run round returns true or false based on if the player correct guessed the code
+    puts "#{@player.name} please guess the color code"
+    guess = input_code(player)
+    feedback = get_feedback(guess)
+    display_feedback(feedback) 
+    feedback.all? {& == FEEDBACK.CORRECT_RIGHT_POSITION} && feedback.size == 4
+  end
+
+
 end
