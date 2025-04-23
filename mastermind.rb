@@ -105,8 +105,8 @@ class Game
     loop do
       input = player.get_input.chars.map(&:to_i)
       code_check = is_valid_code(input)
-      return input unless !code_check.valid
-      put code_check[:error_message] + ", try again:"
+      return input unless !code_check[:valid]
+      puts code_check[:error_message] + ", try again:"
     rescue ArgumentError
       puts "Input must be numbers, try again:"
     end
