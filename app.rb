@@ -1,51 +1,11 @@
-#Player 1 picks a random set of colors (secret code)
-# Loop 12 times
-#   Player 2 submits a guess 
-#   If guess is correct end the game and break the loop
-#   Player 1 submits feedback
-#   
-# Player(name)
-#   input() : number
-#       gets.to_i
-#   
-#
-# ENUM Feedback 
-#   CORRECT_WRONG_POSITION = "Correct number, wrong position"
-#   CORRECT_RIGHT_POSITION = "Correct number, correct position"
-#   
-#game(player1, player2)
-#
+require_relative "mastermind"
+require_relative "player"
 
-#     
-# get_feedback(guess : number[])
-#   create variable called list_of_feedback with initial value of []
-#   for each number in guess compare
-#       if the number exist in the array and guess[i] == code[i]
-#           push CORRECT_RIGHT_POSITON into list_of_feedback
-#       else if number exist in the array but guess[i] != code[i]
-#           push CORRECT_WRONG_POSITION into the array
-#       end
-#    end
-#    return list_of_feedback.randomize the order
-#  end
-#  
-#
-# start()
-#   output player1.name. pick a code (have input be blocked with ****)
-#   game.code = player1.input().split split into an array of 4 numbers
-#   Loop 12 times
-#     output player2.name, please guess a color
-#     create variable of type array named guess with the initial values of player2.inputColors().split() into array of 4 numbers
-#     create variable called feedback =  get_feedback(guess)
-#     
-#     if feedback is the size of 4 and each element is of value CORRECT_RIGHT_POSITION
-#       output player1.name WON!
-#     else if 12th loop
-#       output "Out of attempts.. player_2.name wins!"
-#     else 
-#       output feedback
-#      end
-#    end   
-#
-#     
-#     
+def main 
+  player_1 = Player.new("Jake")
+  player_2 = Player.new("George")
+  game = Game.new(player_1, player_2)
+  game.start
+end
+
+main
