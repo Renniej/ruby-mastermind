@@ -87,10 +87,10 @@ class Game
   end
 
   def display_feedback(list_of_feedback)
-    if feedback.empty? 
+    if list_of_feedback.empty? 
       puts "#{player2.name} got everything wrong..."
     else
-      puts feedback
+      puts list_of_feedback
     end
   end
 
@@ -110,9 +110,9 @@ class Game
   def run_round(player) #run round returns true or false based on if the player correct guessed the code
     puts "#{player.name} please guess the color code"
     guess = input_code(player)
-    feedback = get_feedback(guess)
-    display_feedback(feedback) 
-    feedback.all? {& == FEEDBACK.CORRECT_RIGHT_POSITION} && feedback.size == 4
+    list_of_feedback = get_feedback(guess)
+    display_feedback(list_of_feedback) 
+    list_of_feedback.all? {|feedback| feedback == FEEDBACK[:CORRECT_RIGHT_POSITION]} && list_of_feedback.size == 4
   end
 
 
