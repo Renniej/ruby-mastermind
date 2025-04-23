@@ -10,6 +10,11 @@ class Computer < Player
     @choices = (1000..9999).select { |num| num.to_s.chars.uniq.length == 4 }
   end
   
+  
+
+  def get_guess
+    
+  end
 
   def get_guess
     @choices.delete(@choices.sample).to_s
