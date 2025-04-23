@@ -9,7 +9,5 @@ class Player
      gets.chomp
   end
 
-  def get_color_guess
-  
-  end
+
 end
