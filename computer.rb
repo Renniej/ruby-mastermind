@@ -32,32 +32,32 @@ class Computer < Player
     super("Computer")
     @game = nil
     @guess_index = 0
-
-    @choices = (0000..9999).map{|num| num}
+    @choices = (1000..9999).map{|num| num}
+    @choices.push(0000)
   end
   
-
-
-  def get_guess
-    feedback_counts = @game.list_of_feedback.tally
-    code = nil
-    if (@guess_index == 0)  
-     code =  @choices.delete(1112).to_s
-    else
-      @choices = @choices.select {|code|  @game.get_feedback(code.to_s.chars.map(&:to_i)).tally == feedback_counts}
-     code =  @choices.delete(@choices.sample).to_s
+  def filter_unviable_guesses(feedback_tally)
+    @choices.select do |code|
+      formattedCode = code.to_s.rjust(4, "0").chars.map(&:to_i)
+      feedback =  @game.get_feedback(formattedCode)
+      feedback.tally != feedback_tally
     end
-    @guess_index += 1
-    code
   end
 
+  def get_guess
+    @choices = filter_unviable_guesses(@game.list_of_feedback.tally)
+    guess = (@choices.include? 1112)  ? 1112 : @choices.sample
+    @choices.delete(guess).to_s
+  end
+  
   def is_guesser? 
     game.is_guesser?(self)
   end
 
   def get_input
-    code = if is_guesser? then get_guess else @choices.delete(@choices.sample).to_s end
+    code =  (is_guesser?) ? get_guess : @choices.delete(@choices.sample).to_s 
     puts code
+    puts "king #{@choices}"
     code
   end
 

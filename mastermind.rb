@@ -41,7 +41,7 @@ class Game
 
   def display_feedback(list_of_feedback)
     if list_of_feedback.empty? 
-      puts "#{player2.name} got everything wrong..."
+      puts "#{@player2.name} got everything wrong..."
     else
       puts list_of_feedback
     end
