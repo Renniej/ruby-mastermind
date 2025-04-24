@@ -46,7 +46,7 @@ class Computer < Player
 
   def get_guess
     @choices = filter_unviable_guesses(@game.list_of_feedback.tally)
-    guess = (@choices.include? 1112)  ? 1112 : @choices.sample
+    guess = (@choices.include? 1112)  ? 1112 : @choices.first
     @choices.delete(guess).to_s
   end
   
